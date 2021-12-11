@@ -1,16 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { Navigate, useLocation } from "react-router-dom";
+import { onAuthUIStateChange, AuthState} from "@aws-amplify/ui-components";
 import './App.css';
+import { AmplifyAuthenticator } from '@aws-amplify/ui-react'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Hello from V2</h1>
-      </header>
-    </div>
-  );
+  const location = useLocation()
+  const [authState, setAuthState] = useState()
+  const [currentUser, setCurrentUser] = useState();
+  React.useEffect(() => {
+    return onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setCurrentUser(authData);
+    });
+  },[]);
+  
+  // return <AmplifyAuthenticator />
+  return authState === AuthState.SignedIn && currentUser ? 
+  <Navigate to="/login" state={{from: location}} />
+  :
+  <AmplifyAuthenticator />
 }
 
 export default App;
