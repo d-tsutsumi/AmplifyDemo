@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useLayoutEffect } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "./context/context";
 
 export const useAuthCheck = () => {
@@ -6,7 +7,7 @@ export const useAuthCheck = () => {
   const [isLoading, setLoading] = useState(true);
   const [isAuthenticated, setAuthenticated] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getCurrentUser().then(({ login }) => {
       setAuthenticated(login);
       setLoading(false);

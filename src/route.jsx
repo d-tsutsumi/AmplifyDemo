@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import About from "./components/About";
 import Users from "./components/Users";
 import Home from "./components/Home";
-import Logout from "./components/Logout";
-import Login from "./components/pages/Login";
+import Login from "./components/Login";
 import PrivateRoute from "./privateRoute";
 
 const AppRoute = () => {
@@ -23,14 +22,6 @@ const AppRoute = () => {
           element={
             <PrivateRoute>
               <Users />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="logout"
-          element={
-            <PrivateRoute>
-              <Logout />
             </PrivateRoute>
           }
         />
